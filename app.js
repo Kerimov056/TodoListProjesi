@@ -7,7 +7,7 @@ const listGroup = document.querySelector(".list-group");
 const cardBody = document.querySelectorAll(".card-body")[0];
 const cardBody1 = document.querySelectorAll(".card-body")[1];
 const clear = document.querySelector("#clearButton");
-
+const search = document.querySelector("#todoSearch");
 
 let todos=[];
 
@@ -20,6 +20,7 @@ function run(){
     form.addEventListener("submit",addTodo);
     document.addEventListener("DOMContentLoaded",list_get);
     clear.addEventListener("click",ClearTodo);
+    search.addEventListener("keyup",filter);
 }
 //--------------------------------------------------------------
 
@@ -123,5 +124,28 @@ function ClearTodo(){
         AllertShow("warning","Qeyd'de olan bir todo yoxdur.")
     }
     
+}
+//-------------------------------------------------------------
+
+
+//-------------------------------------------------------------
+//burda yaranan Todolar arasinda Search eleyirik
+function filter(e){
+    const filterValue = e.target.value.toLowerCase().trim();
+    const todoListe = document.querySelectorAll(".list-group-item");
+
+    if(todoListe.length > 0){
+        todoListe.forEach(function(todoss){
+            if(todoss.textContent.toLowerCase().trim().includes(filterValue)){
+                 todoss.setAttribute("style", "display : block !importat");
+            }
+            else{
+               todoss.setAttribute("style", "display : none !important");
+            }
+        });
+    }
+    else{
+        AllertShow("wrong","Hec Bir Todo mevcud deyil.");
+    }
 }
 //-------------------------------------------------------------
